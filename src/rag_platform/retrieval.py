@@ -1,39 +1,50 @@
+import re
 from dataclasses import dataclass
-from typing import List
+from typing import Iterable, List
 
 
-@dataclass
-class RetrievalResult:
-    document: str
-    content: str
+TOKEN_PATTERN = re.compile(r"[a-zA-Z0-9_]+")
+
+
+@dataclass(frozen=True)
+class RetrievedChunk:
+    chunk_id: str
+    source_path: str
     score: float
+    content: str
 
 
-class LexicalRetriever:
-    def __init__(self) -> None:
-        self.documents = [
-            {
-                "document": "architecture.md",
-                "content": "The platform evaluates grounded retrieval augmented generation systems.",
-            },
-            {
-                "document": "evaluation.md",
-                "content": "Groundedness and citation quality are measured during evaluation.",
-            },
-        ]
+def tokenize(text: str) -> List[str]:
+    return [token.lower() for token in TOKEN_PATTERN.findall(text)]
 
-    def search(self, query: str, top_k: int = 3) -> List[RetrievalResult]:
-        scored = []
-        for item in self.documents:
-            overlap = len(set(query.lower().split()) & set(item['content'].lower().split()))
-            score = overlap / max(len(query.split()), 1)
-            scored.append(
-                RetrievalResult(
-                    document=item['document'],
-                    content=item['content'],
-                    score=round(score, 3),
-                )
+
+def score_chunk(question: str, chunk_content: str) -> float:
+    query_tokens = tokenize(question)
+    chunk_tokens = tokenize(chunk_content)
+    if not query_tokens or not chunk_tokens:
+        return 0.0
+
+    query_set = set(query_tokens)
+    chunk_set = set(chunk_tokens)
+    overlap = query_set & chunk_set
+    coverage = len(overlap) / len(query_set)
+    density = sum(chunk_tokens.count(token) for token in overlap) / len(chunk_tokens)
+    return round((coverage * 0.8) + (density * 0.2), 4)
+
+
+def rank_chunks(question: str, rows: Iterable[object], top_k: int) -> List[RetrievedChunk]:
+    ranked = []
+    for row in rows:
+        score = score_chunk(question, row["content"])
+        if score <= 0:
+            continue
+        ranked.append(
+            RetrievedChunk(
+                chunk_id=row["chunk_id"],
+                source_path=row["source_path"],
+                score=score,
+                content=row["content"],
             )
-
-        scored.sort(key=lambda x: x.score, reverse=True)
-        return scored[:top_k]
+        )
+    ranked.sort(key=lambda chunk: chunk.score, reverse=True)
+    return ranked[:top_k]
