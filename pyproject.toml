@@ -5,31 +5,27 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "agent-rag-eval-platform"
 version = "0.1.0"
-description = "Production-grade RAG ingestion, retrieval, generation, and evaluation platform."
+description = "Production-minded RAG ingestion, retrieval, generation, and evaluation platform."
 readme = "README.md"
 requires-python = ">=3.10"
 authors = [{ name = "Muhammad Ali" }]
 dependencies = [
   "fastapi>=0.110",
   "uvicorn[standard]>=0.27",
-  "pydantic>=2.6",
-  "pydantic-settings>=2.2",
-  "typer>=0.9",
-  "rich>=13.7"
+  "pydantic>=2.6"
 ]
 
 [project.optional-dependencies]
-dev = ["pytest>=8.0", "httpx>=0.26", "ruff>=0.3", "mypy>=1.8"]
+dev = [
+  "mypy>=1.8",
+  "ruff>=0.3"
+]
 
 [project.scripts]
-rag-platform = "rag_platform.cli:app"
+rag-platform = "rag_platform.cli:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]
-
-[tool.pytest.ini_options]
-pythonpath = ["src"]
-testpaths = ["tests"]
 
 [tool.ruff]
 line-length = 100
