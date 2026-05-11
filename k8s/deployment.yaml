@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rag-platform
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rag-platform
+  template:
+    metadata:
+      labels:
+        app: rag-platform
+    spec:
+      containers:
+        - name: api
+          image: rag-platform:latest
+          ports:
+            - containerPort: 8000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: rag-platform-service
+spec:
+  selector:
+    app: rag-platform
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8000
+  type: LoadBalancer
