@@ -1,0 +1,3 @@
+{"question":"What does the platform evaluate?","expected_sources":["architecture.md","evaluation.md"],"top_k":3}
+{"question":"How is the service deployed locally?","expected_sources":["operations.md"],"top_k":3}
+{"question":"Why is the evaluation harness useful?","expected_sources":["evaluation.md"],"top_k":3}
