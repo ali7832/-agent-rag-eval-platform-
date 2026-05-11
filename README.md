@@ -29,7 +29,7 @@ Documents -> Loaders -> Chunker -> Repository -> Retriever -> Generator -> Evalu
 - Citation-aware answer composition for explainable outputs
 - Offline evaluation harness for retrieval hit rate and groundedness
 - FastAPI endpoints for ingestion, querying, evaluation, and inspection
-- Typer CLI for local workflows and interview demos
+- Lightweight Python CLI for local workflows and interview demos
 
 ## Quick start
 
