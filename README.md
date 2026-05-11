@@ -95,7 +95,3 @@ src/rag_platform/
 - [ ] LangGraph agent orchestration
 - [ ] OpenTelemetry tracing
 - [ ] Auth and multi-tenant workspaces
-
-## Interview positioning
-
-This project is intentionally designed to support senior AI/ML interviews. It gives concrete talking points around architecture, evaluation, latency, grounding, retrieval tradeoffs, testing, production deployment, and incremental improvement of LLM systems.
