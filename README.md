@@ -1,8 +1,7 @@
 # Agent RAG Evaluation Platform
 
-Production-minded Retrieval-Augmented Generation platform for document ingestion, retrieval, answer generation, and quality evaluation.
+PRetrieval-Augmented Generation platform for document ingestion, retrieval, answer generation, and quality evaluation.
 
-This repository is built as a portfolio-grade AI engineering project: clean architecture, HTTP API, CLI workflows, SQLite persistence, Docker deployment, CI, tests, sample corpus, and evaluation harness.
 
 ## What it demonstrates
 
