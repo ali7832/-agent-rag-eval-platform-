@@ -2,6 +2,11 @@
 
 PRetrieval-Augmented Generation platform for document ingestion, retrieval, answer generation, and quality evaluation.
 
+## Product Demo Video
+
+
+https://github.com/user-attachments/assets/e518171f-bcd3-4f90-8448-c40cac9b086c
+
 
 ## What it demonstrates
 
